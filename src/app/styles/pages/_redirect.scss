@@ -8,5 +8,14 @@
   .container {
     text-align: center;
     max-width: 80%;
+
+    .manual-redirect {
+      opacity: 0;
+
+      &.active {
+        opacity: 1;
+        transition: opacity 0.5s;
+      }
+    }
   }
 }
