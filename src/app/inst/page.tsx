@@ -35,7 +35,7 @@ function Page(req: any) {
   return (
     <div className="redirect-page">
       <div className="container">
-        <h1>{user ? "Redirecting to " + user : "Unknown"}</h1>
+        <h1>{user ? "You are getting redirected to @" + user : "Unknown"}</h1>
 
         <div className="manual-redirect">
           <p> If you are not redirected yet please click this button </p>

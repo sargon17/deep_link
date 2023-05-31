@@ -1,2 +1,12 @@
 .redirect-page {
+  height: 100lvh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    text-align: center;
+    max-width: 80%;
+  }
 }
