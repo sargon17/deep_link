@@ -13,21 +13,37 @@ function Page(req: any) {
   const deviceType = isMobile ? "mobile" : "desktop";
 
   // redirect to the correct page
-  if (deviceType === "mobile") {
-    openApp(user);
-  } else {
-    openWeb(user);
-  }
+  // if (deviceType === "mobile") {
+  //   openApp(user);
+  // } else {
+  //   openWeb(user);
+  // }
 
   function openApp(user: string) {
-    window.location.href = "instagram://user?username=" + user;
+    // open the app
+    router.push("instagram://user?username=" + user);
+    // redirect to the web
+    setTimeout(() => {
+      openWeb(user);
+    }, 1000);
   }
 
   function openWeb(user: string) {
-    window.location.href = "https://www.instagram.com/" + user;
+    router.push("https://instagram.com/" + user);
   }
 
-  return <div>{<h1>{user ? "Redirecting to " + user : "Unknown"}</h1>}</div>;
+  return (
+    <div className="redirect-page">
+      <div className="container">
+        <h1>{user ? "Redirecting to " + user : "Unknown"}</h1>
+
+        <div className="manual-redirect">
+          <p> If you are not redirected yet please click this button </p>
+          <button> Redirect manually</button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Page;

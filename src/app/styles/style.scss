@@ -1,0 +1,9 @@
+@import "variables";
+
+@import "components/components";
+@import "pages/pages";
+
+body {
+  background: $background;
+  color: $color-text-primary;
+}
