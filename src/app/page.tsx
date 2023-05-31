@@ -6,7 +6,10 @@ export default function Home() {
 
   // current path
 
-  const path = window.location.origin;
+  let path = "";
+  if (typeof window !== "undefined") {
+    path = window.location.href;
+  }
   console.log(path);
 
   return (
