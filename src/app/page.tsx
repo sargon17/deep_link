@@ -5,7 +5,9 @@ export default function Home() {
   const [value, setValue] = useState("");
 
   // current path
-  const path = window.location.href;
+
+  const path = window.location.origin;
+  console.log(path);
 
   return (
     <div className="home">
