@@ -15,4 +15,12 @@ h1 {
   font-size: 4rem;
   font-family: "Antonio", sans-serif;
   font-weight: 600;
+
+  @media (max-width: 768px) {
+    font-size: 3rem;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 2rem;
+  }
 }
