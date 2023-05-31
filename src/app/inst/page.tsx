@@ -25,19 +25,23 @@ function Page(req: any) {
   const deviceType = isMobile ? "mobile" : "desktop";
 
   // redirect to the correct page
-  // if (deviceType === "mobile") {
-  //   openApp(user);
-  // } else {
-  //   openWeb(user);
-  // }
+  if (deviceType === "mobile") {
+    openApp(user);
+  } else {
+    openWeb(user);
+  }
 
   function openApp(user: string) {
     // open the app
-    router.push("instagram://user?username=" + user);
-    // redirect to the web
-    setTimeout(() => {
-      openWeb(user);
-    }, 1000);
+    try {
+      router.push("instagram://user?username=" + user);
+    } catch (e) {
+      console.log(e);
+      // redirect to the web
+      setTimeout(() => {
+        openWeb(user);
+      }, 1000);
+    }
   }
 
   function openWeb(user: string) {
