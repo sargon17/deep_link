@@ -1,3 +1,4 @@
+import "./globals.css";
 import "./styles/style.scss";
 
 export const metadata = {

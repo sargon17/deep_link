@@ -1,16 +1,21 @@
 "use client";
+
 import { useState } from "react";
 
-export default function Home() {
-  const [value, setValue] = useState("");
-
-  // current path
-
-  let path = "";
+const getCurrentPath = () => {
   if (typeof window !== "undefined") {
-    path = window.location.href;
+    return window.location.href;
+  } else {
+    return "";
   }
-  console.log(path);
+};
+
+const getLink = (username: string) => {
+  return getCurrentPath() + "inst?u=" + username;
+};
+
+export default function Home({ headersInstance }: any) {
+  const [username, setUsername] = useState("");
 
   return (
     <div className="home">
@@ -28,7 +33,7 @@ export default function Home() {
               id="username"
               placeholder="Username"
               onChange={(e) => {
-                setValue(e.target.value);
+                setUsername(e.target.value);
               }}
             />
           </div>
@@ -69,10 +74,10 @@ export default function Home() {
           <div
             className="result"
             onClick={() => {
-              navigator.clipboard.writeText(path + "inst?u=" + value);
+              navigator.clipboard.writeText(getLink(username));
             }}
           >
-            <p>{path + "inst?u=" + value}</p>
+            {getLink(username)}
           </div>
         </div>
       </div>
