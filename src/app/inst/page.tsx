@@ -57,11 +57,11 @@ function Page(req: any) {
     } catch (e) {
       // redirect to the web
       toast.error("Instagram app not found, redirecting to web");
-
-      setTimeout(() => {
-        openWeb();
-      }, 1000);
+      openWeb();
     }
+    setTimeout(() => {
+      openWeb();
+    }, 1000);
   }
 
   function openWeb() {
