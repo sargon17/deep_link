@@ -9,16 +9,42 @@ import { Input } from "@/components/ui/input";
 
 const selectAppList = [
   {
-    value: "instagram",
+    value: "inst",
     label: "Instagram",
+    isActive: true,
+    badge: "",
+    subElements: [
+      {
+        value: "u",
+        label: "User",
+        isActive: true,
+        badge: "",
+      },
+      {
+        value: "p",
+        label: "Post",
+        isActive: true,
+        badge: "",
+      },
+      {
+        value: "place",
+        label: "Place",
+        isActive: false,
+        badge: "Soon",
+      },
+    ],
   },
   {
     value: "facebook",
     label: "Facebook",
+    isActive: true,
+    badge: "Soon",
   },
   {
     value: "twitter",
     label: "Twitter",
+    isActive: false,
+    badge: "Soon",
   },
 ];
 
@@ -44,26 +70,79 @@ const getLink = (username: string) => {
 export default function Home() {
   const [username, setUsername] = useState("");
 
-  const [currentApp, setCurrentApp] = useState(selectAppList[0]);
+  const [currentApp, setCurrentApp] = useState(selectAppList[0] as any);
+  const [currentSubElement, setCurrentSubElement] = useState(
+    currentApp.subElements && currentApp.subElements[0] ? (currentApp.subElements[0] as any) : {}
+  );
+
+  useEffect(() => {
+    if (currentApp.subElements) {
+      setCurrentSubElement(currentApp.subElements[0]);
+    } else {
+      setCurrentSubElement({});
+    }
+  }, [currentApp]);
+
+  useEffect(() => {
+    console.log(currentSubElement);
+  }, [currentSubElement]);
+
+  const currentAppHandler = (app: string) => {
+    if (selectAppList.find((singleApp) => singleApp.value === app)) {
+      setCurrentApp(selectAppList.find((singleApp) => singleApp.value === app));
+    }
+  };
+
+  const queryBuilder = () => {
+    const base = getCurrentPath();
+    const page = currentApp.value;
+    const search = currentSubElement.value;
+    return `${base}${page}?${search}=${username}`;
+  };
+
+  const currentSubElementHandler = (subElement: string) => {
+    if (
+      currentApp.subElements &&
+      currentApp.subElements.find((singleSubElement: any) => singleSubElement.value === subElement)
+    ) {
+      setCurrentSubElement(
+        currentApp.subElements.find((singleSubElement: any) => singleSubElement.value === subElement)
+      );
+    }
+  };
 
   return (
     <>
       <div className="home dark p-6 max-w-7xl mx-auto">
         <h1 className="mb-4">Create your own deeplink redirector</h1>
-        <div className="p-6  bg-purple-700 rounded-lg">
+        <div className="p-6  bg-purple-700 rounded-lg drop-shadow-lg">
           <p className="">
             This is a simple tool to create your own deeplink redirector. You can use it to redirect your
             users to the app or website based on their device type.
           </p>
 
-          <Select
-            dataSet={selectAppList}
-            defaultVal={selectAppList[0].value}
-            updateValue={setCurrentApp}
-            className="dark py-4 "
-          />
+          <div className="flex justify-start items-center gap-3 flex-wrap py-4 ">
+            <Select
+              dataSet={selectAppList}
+              defaultVal={selectAppList[0].value}
+              updateValue={(app: string) => {
+                currentAppHandler(app);
+              }}
+              placeholder="Select app..."
+            />
+            {currentApp.subElements && (
+              <Select
+                dataSet={currentApp.subElements}
+                defaultVal={currentSubElement.value}
+                updateValue={(subElement: string) => {
+                  currentSubElementHandler(subElement);
+                }}
+                placeholder="Select item..."
+              />
+            )}
+          </div>
 
-          <div className="flex w-full justify-between align-middle items-end gap-3">
+          <div className="flex w-full justify-between align-middle items-end gap-3 flex-wrap">
             <div className="input flex flex-col grow">
               <label htmlFor="username">Username</label>
               <Input
@@ -110,12 +189,11 @@ export default function Home() {
             <div
               className="result grow h-[40px] flex justify-center items-center bg-purple-700 rounded-md text-purple-100 font-medium text-xs sm:text-sm text-center cursor-pointer bg-purple-800 border-purple-800 border active:bg-purple-900 active:border-purple-900 pointer-events-clickable"
               onClick={() => {
-                navigator.clipboard.writeText(getLink(username));
-                console.log("copied");
+                navigator.clipboard.writeText(queryBuilder());
                 toast("Copied to clipboard!");
               }}
             >
-              {getLink(username)}
+              {queryBuilder()}
             </div>
           </div>
         </div>

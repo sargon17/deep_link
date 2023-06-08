@@ -58,6 +58,7 @@ function Select({ dataSet, defaultVal, updateValue, className, placeholder }: Se
                 <CommandItem
                   key={data.value}
                   disabled={!data.isActive}
+                  value={data.value}
                   className="disabled:opacity-50 disabled:pointer-events-none"
                   onSelect={(currentValue: string) => {
                     setSelectedData(currentValue === selectedData ? "" : currentValue);
