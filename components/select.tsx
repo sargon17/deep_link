@@ -10,7 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Badge } from "@/components/ui/badge";
 
 type SelectProps = {
-  dataSet: { label: string; value: string; active: boolean; subElements: {}[] }[];
+  dataSet: { label: string; value: string; isActive: boolean; badge: string; subElements?: any }[];
   defaultVal?: string | object | null;
   updateValue: Function;
   className?: string;
@@ -57,7 +57,7 @@ function Select({ dataSet, defaultVal, updateValue, className, placeholder }: Se
               {dataSet.map((data) => (
                 <CommandItem
                   key={data.value}
-                  disabled={!data.active}
+                  disabled={!data.isActive}
                   className="disabled:opacity-50 disabled:pointer-events-none"
                   onSelect={(currentValue: string) => {
                     setSelectedData(currentValue === selectedData ? "" : currentValue);
@@ -67,13 +67,13 @@ function Select({ dataSet, defaultVal, updateValue, className, placeholder }: Se
                   <Check
                     className={cn("mr-2 h-4 w-4", selectedData === data.value ? "opacity-100" : "opacity-0")}
                   />
-                  <p className="">{data.label}</p>
-                  {!data.active && (
+                  <p className={!data.isActive ? " opacity-50" : ""}>{data.label}</p>
+                  {data.badge && (
                     <Badge
                       variant={"outline"}
                       className="ml-auto text-xs"
                     >
-                      soon
+                      {data.badge}
                     </Badge>
                   )}
                 </CommandItem>
