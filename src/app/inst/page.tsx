@@ -49,8 +49,8 @@ function Page(req: any) {
   }
 
   return (
-    <div className="redirect-page">
-      <div className="container">
+    <div className="redirect-page flex justify-center items-center w-full h-screen p-4">
+      <div className="container max-w-4xl text-center">
         <h1>{user ? "You are getting redirected to @" + user : "Unknown"}</h1>
 
         <div className={manualRedirect === true ? "manual-redirect active" : "manual-redirect"}>
