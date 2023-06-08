@@ -1,0 +1,11 @@
+{
+  "theme_color": "#3579f6",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "name": "DeepLinker",
+  "short_name": "DElinker",
+  "description": "An app to help you create deep links for your apps",
+  "icons": []
+}

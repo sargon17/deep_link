@@ -11,6 +11,8 @@ export const metadata = {
   keywords: "instagram, deeplink, redirect, app, website",
 };
 
+// set up pwa
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -22,6 +24,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link
           href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;1,400&display=swap"
           rel="stylesheet"
+        />
+        <link
+          rel="manifest"
+          href="/manifest.json"
         />
       </head>
       <body>{children}</body>
