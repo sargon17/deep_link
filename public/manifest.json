@@ -7,5 +7,31 @@
   "name": "DeepLinker",
   "short_name": "DElinker",
   "description": "An app to help you create deep links for your apps",
-  "icons": []
+  "icons": [
+    {
+      "src": "images/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icons/apple-touch-icon.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icons/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icons/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/ico"
+    }
+  ]
 }
