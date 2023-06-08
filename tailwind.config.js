@@ -1,9 +1,15 @@
 const { fontFamily } = require("tailwindcss/defaultTheme");
 
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   darkMode: ["class"],
-  content: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
     container: {
       center: true,
@@ -11,6 +17,13 @@ module.exports = {
       screens: {
         "2xl": "1400px",
       },
+    },
+    colors: {
+      "purple-900": "#090a0d",
+      "purple-800": "#1c1b22",
+      "purple-700": "#262630",
+      "purple-500": "#4c4960",
+      "purple-100": "#e5e4ee",
     },
     extend: {
       colors: {

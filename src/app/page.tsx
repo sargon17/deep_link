@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // components
 import { ToastContainer, toast } from "react-toastify";
 import { Select } from "@/components/select";
+import { Input } from "@/components/ui/input";
 
 const selectAppList = [
   {
@@ -43,29 +44,36 @@ const getLink = (username: string) => {
 export default function Home() {
   const [username, setUsername] = useState("");
 
+  const [currentApp, setCurrentApp] = useState(selectAppList[0]);
+
   return (
     <>
-      <div className="home">
-        <h1>Create your own deeplink redirector</h1>
-        <div className="card">
-          <p>
+      <div className="home dark p-6 max-w-7xl mx-auto">
+        <h1 className="mb-4">Create your own deeplink redirector</h1>
+        <div className="p-6  bg-purple-700 rounded-lg">
+          <p className="">
             This is a simple tool to create your own deeplink redirector. You can use it to redirect your
             users to the app or website based on their device type.
           </p>
-          <Select />
-          <div className="deep-link-wrapper">
-            <div className="input">
+
+          <Select
+            dataSet={selectAppList}
+            defaultVal={selectAppList[0].value}
+            updateValue={setCurrentApp}
+            className="dark py-4 "
+          />
+
+          <div className="flex w-full justify-between align-middle items-end gap-3">
+            <div className="input flex flex-col grow">
               <label htmlFor="username">Username</label>
-              <input
-                type="text"
+              <Input
                 id="username"
-                placeholder="Username"
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="mt-2"
               />
             </div>
-            <div className="icon">
+            <div className="h-[40px] flex justify-center items-center">
               <svg
                 width="24"
                 height="24"
@@ -100,15 +108,11 @@ export default function Home() {
               </svg>
             </div>
             <div
-              className="result"
+              className="result grow h-[40px] flex justify-center items-center bg-purple-700 rounded-md text-purple-100 font-medium text-xs sm:text-sm text-center cursor-pointer bg-purple-800 border-purple-800 border active:bg-purple-900 active:border-purple-900 pointer-events-clickable"
               onClick={() => {
                 navigator.clipboard.writeText(getLink(username));
                 console.log("copied");
-                toast("Copied to clipboard!", {
-                  position: "bottom-right",
-                  autoClose: 2000,
-                  hideProgressBar: true,
-                });
+                toast("Copied to clipboard!");
               }}
             >
               {getLink(username)}
@@ -116,7 +120,13 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <ToastContainer />
+      <ToastContainer
+        theme="dark"
+        position="bottom-center"
+        autoClose={2000}
+        hideProgressBar
+        limit={3}
+      />
     </>
   );
 }

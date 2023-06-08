@@ -1,5 +1,5 @@
+// import "./styles/style.scss";
 import "./globals.css";
-import "./styles/style.scss";
 
 import "react-toastify/dist/ReactToastify.css";
 

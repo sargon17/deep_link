@@ -1,34 +1,31 @@
 "use client";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { type } from "os";
 
-const selectAppList = [
-  {
-    value: "instagram",
-    label: "Instagram",
-  },
-  {
-    value: "facebook",
-    label: "Facebook",
-  },
-  {
-    value: "twitter",
-    label: "Twitter",
-  },
-];
+type SelectProps = {
+  dataSet: { label: string; value: string }[];
+  defaultVal?: string | object | null;
+  updateValue: Function;
+  className?: string;
+};
 
-function Select() {
+function Select({ dataSet, defaultVal, updateValue, className }: SelectProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedApp, setSelectedApp] = useState(selectAppList[0].value);
+  const [selectedData, setSelectedData] = useState(defaultVal || "");
+
+  useEffect(() => {
+    updateValue(selectedData);
+  }, [selectedData]);
 
   return (
-    <>
+    <div className={className}>
       <Popover
         open={isOpen}
         onOpenChange={setIsOpen}
@@ -37,37 +34,39 @@ function Select() {
           <Button
             variant="outline"
             role="combobox"
-            // aria-expanded={open}
-            className="w-[200px] justify-between"
+            className="w-[200px] justify-between dark"
           >
-            {selectedApp ? selectAppList.find((app) => app.value === selectedApp)?.label : "Select app..."}
+            {selectedData ? dataSet.find((data) => data.value === selectedData)?.label : "Select app..."}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0">
+        <PopoverContent className="w-[200px] p-0 dark">
           <Command>
-            <CommandInput placeholder="Search app..." />
+            <CommandInput
+              placeholder="Search app..."
+              className="dark my-1 px-2 bg-input rounded-md "
+            />
             <CommandEmpty>No app found.</CommandEmpty>
             <CommandGroup>
-              {selectAppList.map((app) => (
+              {dataSet.map((data) => (
                 <CommandItem
-                  key={app.value}
+                  key={data.value}
                   onSelect={(currentValue: string) => {
-                    setSelectedApp(currentValue === selectedApp ? "" : currentValue);
+                    setSelectedData(currentValue === selectedData ? "" : currentValue);
                     setIsOpen(false);
                   }}
                 >
                   <Check
-                    className={cn("mr-2 h-4 w-4", selectedApp === app.value ? "opacity-100" : "opacity-0")}
+                    className={cn("mr-2 h-4 w-4", selectedData === data.value ? "opacity-100" : "opacity-0")}
                   />
-                  {app.label}
+                  {data.label}
                 </CommandItem>
               ))}
             </CommandGroup>
           </Command>
         </PopoverContent>
       </Popover>
-    </>
+    </div>
   );
 }
 
