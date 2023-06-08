@@ -1,6 +1,8 @@
 import "./globals.css";
 import "./styles/style.scss";
 
+import "react-toastify/dist/ReactToastify.css";
+
 export const metadata = {
   title: "Deeplink Redirector",
   description: "Redirect to the Instagram app or website",
