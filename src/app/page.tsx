@@ -24,7 +24,7 @@ const selectAppList = [
         value: "p",
         label: "Post",
         isActive: true,
-        badge: "",
+        badge: "alpha",
       },
       {
         value: "place",
