@@ -37,7 +37,7 @@ const selectAppList = [
   {
     value: "facebook",
     label: "Facebook",
-    isActive: true,
+    isActive: false,
     badge: "Soon",
   },
   {
@@ -144,7 +144,9 @@ export default function Home() {
 
           <div className="flex w-full justify-between align-middle items-end gap-3 flex-wrap">
             <div className="input flex flex-col grow">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="username">
+                {currentSubElement.label ? currentSubElement.label : "Username"}
+              </label>
               <Input
                 id="username"
                 value={username}
