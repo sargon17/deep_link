@@ -4,6 +4,7 @@ import { isMobile } from "react-device-detect";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { urlToInstaId } from "@/utils/insta-id-to-url";
 
 function Page(req: any) {
   const [manualRedirect, setManualRedirect] = useState(false);
@@ -24,6 +25,11 @@ function Page(req: any) {
   // search value
   const searchParam = req.searchParams.u || req.searchParams.p;
 
+  let postId = ""; // the post id
+  if (searchType === "p") {
+    postId = urlToInstaId(searchParam);
+  }
+
   if (!searchParam) {
     router.back();
   }
@@ -40,7 +46,7 @@ function Page(req: any) {
   function deepLinkBuilder() {
     // build the deeplink
     if (deviceType === "mobile") {
-      const query = `instagram://${searchType === "u" ? "user?username=" : "media?id="}${searchParam}`;
+      const query = `instagram://${searchType === "u" ? "user?username=" : "media?id="}${postId}`;
       console.log(query);
       return query;
     } else {
