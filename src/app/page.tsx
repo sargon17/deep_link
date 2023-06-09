@@ -63,12 +63,9 @@ const getCurrentPath = () => {
   }
 };
 
-const getLink = (username: string) => {
-  return getCurrentPath() + "inst?u=" + username;
-};
-
 export default function Home() {
   const [username, setUsername] = useState("");
+  const [postUrl, setPostUrl] = useState("");
 
   const [currentApp, setCurrentApp] = useState(selectAppList[0] as any);
   const [currentSubElement, setCurrentSubElement] = useState(
@@ -93,11 +90,29 @@ export default function Home() {
     }
   };
 
+  const getPostId = (url: string) => {
+    const urlSplit = url.split("?")[0].split("/")[4];
+    return urlSplit;
+  };
+
   const queryBuilder = () => {
     const base = getCurrentPath();
     const page = currentApp.value;
     const search = currentSubElement.value;
-    return `${base}${page}?${search}=${username}`;
+
+    let searchValue = "";
+    switch (search) {
+      case "u":
+        searchValue = username;
+        break;
+      case "p":
+        searchValue = getPostId(postUrl);
+        break;
+      default:
+        break;
+    }
+
+    return `${base}${page}?${search}=${searchValue}`;
   };
 
   const currentSubElementHandler = (subElement: string) => {
@@ -144,15 +159,28 @@ export default function Home() {
 
           <div className="flex w-full justify-between align-middle items-end gap-3 flex-wrap">
             <div className="input flex flex-col grow">
-              <label htmlFor="username">
-                {currentSubElement.label ? currentSubElement.label : "Username"}
-              </label>
-              <Input
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="mt-2"
-              />
+              {currentSubElement.value == "u" && (
+                <>
+                  <label htmlFor="username">Username</label>
+                  <Input
+                    id="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    className="mt-2"
+                  />
+                </>
+              )}
+              {currentSubElement.value == "p" && (
+                <>
+                  <label htmlFor="username">Post URL</label>
+                  <Input
+                    id="postUrl"
+                    value={postUrl}
+                    onChange={(e) => setPostUrl(e.target.value)}
+                    className="mt-2"
+                  />
+                </>
+              )}
             </div>
             <div className="h-[40px] flex justify-center items-center">
               <svg
@@ -189,7 +217,7 @@ export default function Home() {
               </svg>
             </div>
             <div
-              className="result grow h-[40px] flex justify-center items-center bg-purple-700 rounded-md text-purple-100 font-medium text-xs sm:text-sm text-center cursor-pointer bg-purple-800 border-purple-800 border active:bg-purple-900 active:border-purple-900 pointer-events-clickable"
+              className="result grow h-[40px] flex justify-center items-center bg-purple-700 rounded-md text-purple-100 font-medium text-xs sm:text-sm text-center cursor-copy bg-purple-800 border-purple-800 border active:bg-purple-900 active:border-purple-900 pointer-events-clickable"
               onClick={() => {
                 navigator.clipboard.writeText(queryBuilder());
                 toast("Copied to clipboard!");
