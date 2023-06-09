@@ -46,12 +46,12 @@ function Page(req: any) {
   function deepLinkBuilder() {
     // build the deeplink
     if (deviceType === "mobile") {
+      console.log("mobile");
       const query = `instagram://${searchType === "u" ? "user?username=" : "media?id="}${postId}`;
-      console.log(query);
       return query;
     } else {
+      console.log("desktop");
       const query = `https://instagram.com/${searchType === "u" ? searchParam : "p/" + searchParam}`;
-      console.log(query);
       return query;
     }
   }

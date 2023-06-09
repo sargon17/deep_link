@@ -1,6 +1,9 @@
 import BigNumber from "bignumber.js";
 
-import * as charmap from "./charmap.json"; // charmap.json is a file that contains a mapping of numbers to characters
+import chars from "./charmap.json"; // charmap.json is a file that contains a mapping of numbers to characters
+
+// type charmap
+const charmap: { [key: string]: string } = chars;
 
 const reverseCharMap: { [key: string]: string } = {};
 
