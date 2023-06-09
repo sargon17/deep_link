@@ -51,6 +51,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           sizes="16x16"
           href="/favicon-16x16.png"
         />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+        />
       </head>
       <body>{children}</body>
     </html>
