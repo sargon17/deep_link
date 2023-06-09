@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <meta
           name="theme-color"
-          content="#ffffff"
+          content="#090a0d"
         />
         {/* favicon */}
         <link
