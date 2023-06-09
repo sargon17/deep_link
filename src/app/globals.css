@@ -94,6 +94,7 @@
     font-family: "Barlow", sans-serif;
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
   }
   html {
     background-color: #090a0d;
