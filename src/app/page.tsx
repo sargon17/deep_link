@@ -113,7 +113,6 @@ export default function Home() {
     }
 
     return `${base}${page}?${search}=${searchValue}`;
-    // TODO: test git config
   };
 
   const currentSubElementHandler = (subElement: string) => {
@@ -133,8 +132,8 @@ export default function Home() {
         <h1 className="mb-4">Create your own deeplink redirector</h1>
         <div className="p-6  bg-purple-700 rounded-lg drop-shadow-lg">
           <p className="">
-            This is a simple tool to create your own deeplink redirector. You can use it to redirect your
-            users to the app or website based on their device type.
+            Create custom deep link redirects effortlessly. Direct users to your social media app or website
+            based on their device type with our intuitive tool.
           </p>
 
           <div className="flex justify-start items-center gap-3 flex-wrap py-4 ">
